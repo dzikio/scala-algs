@@ -970,6 +970,35 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def rotate(m: Array[Array[Int]]): Unit = {
+    val n = m.length
+
+    @tailrec
+    def inner(level: Int): Unit =
+      if (level == n / 2) ()
+      else {
+        for (k <- 0 to n - (2 * (level + 1))) {
+          val l = level
+          val r = n - 1 - level
+
+          val (ul, ur, lr, ll) = (
+            m(l)(l + k),
+            m(l + k)(r),
+            m(r)(r - k),
+            m(r - k)(l)
+          )
+
+          m(l)(l + k) = ll
+          m(l + k)(r) = ul
+          m(r)(r - k) = ur
+          m(r - k)(l) = lr
+        }
+
+        inner(level + 1)
+      }
+
+    inner(0)
+  }
 
   /** Title: 49. Group Anagrams
     *
