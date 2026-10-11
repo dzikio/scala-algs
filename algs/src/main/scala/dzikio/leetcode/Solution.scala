@@ -207,6 +207,30 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def combinationSum2(candidates: Array[Int], target: Int): List[List[Int]] = {
+    val xs = candidates.filter(_ <= target).sorted
+    val res = mutable.Set.empty[List[Int]]
+    val acc = mutable.ArrayDeque.empty[Int]
+
+    def inner(i: Int, sum: Int): Unit =
+      if (sum == target) res += acc.toList
+      else {
+        var j = i
+        while (j < xs.length && xs(j) + sum <= target)
+          if (j > i && xs(j) == xs(j - 1)) j += 1
+          else {
+            acc += xs(j)
+            inner(j + 1, sum + xs(j))
+            acc.removeLast()
+
+            j += 1
+          }
+      }
+
+    inner(0, 0)
+
+    res.toList
+  }
 
   /** Title: 42. Trapping Rain Water
     *
