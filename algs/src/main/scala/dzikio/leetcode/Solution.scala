@@ -179,6 +179,20 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def searchInsert(xs: Array[Int], x: Int): Int = {
+    var lo = 0
+    var hi = xs.length - 1
+
+    while (lo <= hi) {
+      val mid = (lo + hi) / 2
+
+      if (xs(mid) == x) return mid
+      else if (xs(mid) > x) hi = mid - 1
+      else lo = mid + 1
+    }
+
+    lo
+  }
 
   /** Title: 36. Valid Sudoku
     *
