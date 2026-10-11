@@ -906,6 +906,21 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def jump(xs: Array[Int]): Int = {
+    val N = xs.length
+    val dp = Array.fill(N)(Int.MaxValue)
+
+    dp(0) = 0
+
+    for (i <- 0 until N - 1) {
+      val M = xs(i) + i
+      for (j <- i + 1 to (M min N - 1)) {
+        dp(j) = (dp(i) + 1) min dp(j)
+      }
+    }
+
+    dp.last
+  }
 
   /** Title: 46. Permutations
     *
