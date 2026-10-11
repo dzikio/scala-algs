@@ -87,6 +87,16 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def longestCommonPrefix(strs: Array[String]): String = {
+    val sorted = strs.sorted
+    val (h, l) = (sorted.head, sorted.last)
+
+    val L = (h.length min l.length)
+    for (i <- 0 until L)
+      if (h(i) != l(i)) return h.substring(0, i)
+
+    h.substring(0, L)
+  }
 
   /** Title: 15. 3Sum
     *
