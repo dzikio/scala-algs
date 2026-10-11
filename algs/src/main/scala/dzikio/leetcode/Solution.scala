@@ -186,6 +186,21 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def maxArea(heights: Array[Int]): Int = {
+    @tailrec
+    def inner(l: Int, r: Int, maxSoFar: Int): Int =
+      if (l >= r) maxSoFar
+      else {
+        val L = heights(l)
+        val R = heights(r)
+        val s = (L min R) * (r - l)
+
+        if (L < R) inner(l + 1, r, maxSoFar max s)
+        else inner(l, r - 1, maxSoFar max s)
+      }
+
+    inner(0, heights.length - 1, 0)
+  }
 
   /** Title: 12. Integer to Roman
     *
