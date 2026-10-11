@@ -256,6 +256,14 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def groupAnagrams(strs: Array[String]): List[List[String]] = {
+    strs
+      .groupBy(_.sorted)
+      .view
+      .mapValues(_.toList)
+      .values
+      .toList
+  }
 
   /** Title: 50. Pow(x, n)
     *
