@@ -798,6 +798,25 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def combinationSum(xs2: Array[Int], target: Int): List[List[Int]] = {
+    val res = mutable.Set.empty[List[Int]]
+
+    val xs = xs2.sorted
+
+    def inner(start: Int, left: Int, cur: mutable.ArrayDeque[Int]): Unit =
+      if (left < 0) ()
+      else if (left == 0) res += cur.toList
+      else {
+        (start until xs.length).foreach { i =>
+          cur += xs(i)
+          inner(i, left - xs(i), cur)
+          cur.removeLast()
+        }
+      }
+
+    inner(0, target, mutable.ArrayDeque.empty[Int])
+    res.toList
+  }
 
   /** Title: 40. Combination Sum II
     *
