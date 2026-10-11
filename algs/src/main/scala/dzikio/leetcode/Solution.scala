@@ -214,6 +214,26 @@ object Solution extends App {
     *
     * Difficulty: Hard
     */
+  def trap(hs: Array[Int]): Int = {
+    val largerToTheLeft = hs
+      .foldLeft((List.empty[Int], 0)) { case ((acc, m), h) =>
+        val maxTillNow = m max h
+        (maxTillNow :: acc, maxTillNow)
+      }
+      ._1
+      .reverse
+
+    val largerToTheRight = hs
+      .foldRight((List.empty[Int], 0)) { case (h, (acc, m)) =>
+        val maxTillNow = m max h
+        (maxTillNow :: acc, maxTillNow)
+      }
+      ._1
+
+    ((largerToTheLeft zip largerToTheRight) zip hs).foldLeft(0) {
+      case (s, ((l, r), h)) => s + ((l min r) - h)
+    }
+  }
 
   /** Title: 43. Multiply Strings
     *
