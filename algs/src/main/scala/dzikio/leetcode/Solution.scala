@@ -588,6 +588,17 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def strStr(a: String, b: String): Int = {
+    if (b.isEmpty) return 0
+    if (b.length > a.length) return -1
+
+    for (i <- a.indices)
+      if (a(i) == b(0)) {
+        if (i + b.length <= a.length && a.substring(i, i + b.length) == b)
+          return i
+      }
+    -1
+  }
 
   /** Title: 31. Next Permutation
     *
