@@ -1021,6 +1021,22 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def myPow(x: Double, n: Int): Double = {
+    def inner(x: Double, n: Long): Double =
+      if (n == 0) 1
+      else if (n == 1) x
+      else if (n == 2) x * x
+      else if (n % 2 == 0) {
+        val half = inner(x, n / 2)
+        half * half
+      } else {
+        val half = inner(x, (n - 1) / 2)
+        x * half * half
+      }
+
+    if (n < 0) 1 / inner(x, -(n.toLong))
+    else inner(x, n)
+  }
 
   /** Title: 51. N-Queens
     *
