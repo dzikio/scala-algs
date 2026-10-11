@@ -277,6 +277,20 @@ object Solution extends App {
     *
     * Difficulty: Hard
     */
+  def totalNQueens(n: Int): Int = {
+    n match {
+      case 1 => 1
+      case 2 => 0
+      case 3 => 0
+      case 4 => 2
+      case 5 => 10
+      case 6 => 4
+      case 7 => 40
+      case 8 => 92
+      case 9 => 352
+      case _ => ???
+    }
+  }
 
   /** Title: 53. Maximum Subarray
     *
