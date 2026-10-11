@@ -23,6 +23,34 @@ object Solution extends App {
     *
     * Link: https://leetcode.com/problems/add-two-numbers/
     */
+  def addTwoNumbers(w: ListNode, v: ListNode): ListNode = {
+    @tailrec
+    def inner(_l1: ListNode, _l2: ListNode, carry: Int, acc: ListNode): Unit =
+      if (Option(_l1).isEmpty && Option(_l2).isEmpty) {
+        if (carry != 0) acc.next = new ListNode(1)
+      } else {
+        val (x, l1) = getAndAdvance(_l1)
+        val (y, l2) = getAndAdvance(_l2)
+
+        val sum = x + y + carry
+        val node = new ListNode(sum % 10)
+        acc.next = node
+
+        inner(l1, l2, sum / 10, acc.next)
+      }
+
+    val dummy = new ListNode()
+    inner(w, v, 0, dummy)
+    dummy.next
+  }
+
+  private def next(l: ListNode): ListNode = Option(l).map(_.next).orNull
+
+  private def getAndAdvance(l: ListNode): (Int, ListNode) = {
+    val nextNode = next(l)
+
+    (Option(l).map(_.x).getOrElse(0), nextNode)
+  }
 
   /** Title: 3. Longest Substring Without Repeating Characters
     *
