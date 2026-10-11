@@ -45,6 +45,27 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def convert(s: String, rows: Int): String = {
+    if (rows == 1) return s
+
+    var down = true
+    val bufs = List.fill(rows)(new StringBuilder())
+    var r = 0
+    for (i <- s.indices) {
+      bufs(r).append(s(i))
+
+      if (down && r == rows - 1) {
+        down = false
+      } else if (!down && r == 0) {
+        down = true
+      }
+
+      if (down) r += 1
+      else r -= 1
+    }
+
+    bufs.mkString
+  }
 
   /** Title: 7. Reverse Integer
     *
