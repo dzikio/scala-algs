@@ -1187,6 +1187,27 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def merge(intervals: Array[Array[Int]]): Array[Array[Int]] = {
+    val byStart = intervals.sortBy(_.head)
+
+    val res = mutable.ArrayBuffer.empty[Array[Int]]
+
+    res += byStart.head
+
+    byStart.tail.foldLeft(res) { (acc, b) =>
+      val cur = acc.last
+
+      if (b(0) > cur(1)) {
+        acc.append(b)
+      } else {
+        cur(1) = cur(1) max b(1)
+      }
+
+      acc
+    }
+
+    res.toArray
+  }
 
   /** Title: 57. Insert Interval
     *
