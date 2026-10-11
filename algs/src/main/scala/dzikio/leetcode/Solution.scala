@@ -242,6 +242,20 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def permuteUnique(xs: Array[Int]): List[List[Int]] = {
+    val res = mutable.Set.empty[List[Int]]
+
+    def inner(indices: Set[Int], current: List[Int]): Unit =
+      if (indices.isEmpty) res += current
+      else {
+        for (i <- indices)
+          inner(indices - i, xs(i) :: current)
+      }
+
+    inner(xs.indices.toSet, Nil)
+
+    res.toList
+  }
 
   /** Title: 48. Rotate Image
     *
