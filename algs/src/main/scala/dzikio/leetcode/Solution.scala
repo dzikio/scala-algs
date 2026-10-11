@@ -143,6 +143,32 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def removeElement(xs: Array[Int], toRemove: Int): Int = {
+    @tailrec
+    def inner(r: Int, w: Int): Int =
+      if (r == xs.length) w
+      else if (xs(r) != toRemove) {
+        xs(w) = xs(r)
+        inner(r + 1, w + 1)
+      } else {
+        inner(r + 1, w)
+      }
+
+    inner(0, 0)
+  }
+
+  def removeElementIter(xs: Array[Int], toRemove: Int): Int = {
+    var w = 0
+
+    for (r <- xs) {
+      if (r != toRemove) {
+        xs(w) = r
+        w += 1
+      }
+    }
+
+    w
+  }
 
   /** Title: 28. Implement strStr()
     *
