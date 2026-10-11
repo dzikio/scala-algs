@@ -1244,6 +1244,19 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def lengthOfLastWord(s: String): Int = {
+    @tailrec
+    def inner(i: Int, acc: Int): Int = {
+      if (i < 0 || s(i) == ' ') acc
+      else inner(i - 1, acc + 1)
+    }
+
+    for (i <- s.indices.reverse)
+      if (s(i) != ' ')
+        return inner(i, 0)
+
+    throw new IllegalArgumentException
+  }
 
   /** Title: 59. Spiral Matrix II
     *
