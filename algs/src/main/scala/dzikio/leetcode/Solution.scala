@@ -136,6 +136,40 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def removeDuplicates(xs: Array[Int]): Int = {
+    if (xs.isEmpty) return 0
+
+    @tailrec
+    def inner(l: Int, r: Int): Int =
+      if (r == xs.length) l
+      else {
+        if (xs(r) != xs(r - 1)) {
+          xs(l) = xs(r)
+          inner(l + 1, r + 1)
+        } else {
+          inner(l, r + 1)
+        }
+      }
+
+    inner(1, 1)
+  }
+
+  def removeDuplicatesIter(xs: Array[Int]): Int = {
+    if (xs.isEmpty) return 0
+    var l = 1
+    var r = 1
+
+    while (r < xs.length) {
+      if (xs(r) != xs(r - 1)) {
+        xs(l) = xs(r)
+        l += 1
+      }
+
+      r += 1
+    }
+
+    l
+  }
 
   /** Title: 27. Remove Element
     *
