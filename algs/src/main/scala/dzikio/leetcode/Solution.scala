@@ -59,6 +59,7 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def isPalindrome(x: Int): Boolean = x.toString == x.toString.reverse
 
   /** Title: 11. Container With Most Water
     *
