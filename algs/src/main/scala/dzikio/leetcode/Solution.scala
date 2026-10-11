@@ -1044,6 +1044,34 @@ object Solution extends App {
     *
     * Difficulty: Hard
     */
+  def solveNQueens(n: Int): List[List[String]] = {
+    val solutions = mutable.Set.empty[List[Int]]
+    val visited = mutable.Set.empty[List[Int]]
+
+    def inner(cols: List[Int], possibleCols: Set[Int]): Unit =
+      if (visited(cols)) ()
+      else if (cols.size == n) solutions += cols
+      else {
+        visited += cols
+        possibleCols.foreach { c =>
+          val r = cols.size
+          if (
+            // cols are reversed
+            cols.zipWithIndex.forall { case (_c, i) =>
+              (_c - c).abs != ((r - 1 - i) - r).abs
+            }
+          ) {
+            inner(c :: cols, possibleCols - c)
+          }
+        }
+      }
+
+    inner(Nil, (0 until n).toSet)
+
+    for {
+      s <- solutions.toList
+    } yield s.map(i => "." * i + "Q" + "." * ((n - 1) - i))
+  }
 
   /** Title: 52. N-Queens II
     *
