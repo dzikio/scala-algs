@@ -221,6 +221,23 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def multiply(a: String, b: String): String = {
+    if (a == "0" || b == "0") return "0"
+    val temp = Array.ofDim[Int](b.length + a.length)
+
+    for {
+      i <- a.indices
+      j <- b.indices
+    } {
+      val x =
+        (a(a.length - 1 - i) - '0') * (b(b.length - 1 - j) - '0') + temp(i + j)
+
+      temp(j + i) = x % 10
+      temp(j + i + 1) += (x / 10)
+    }
+
+    temp.reverse.dropWhile(_ == 0).mkString
+  }
 
   /** Title: 45. Jump Game II
     *
