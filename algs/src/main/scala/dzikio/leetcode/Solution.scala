@@ -235,6 +235,20 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def permute(xs: Array[Int]): List[List[Int]] = {
+    val res = mutable.ListBuffer.empty[List[Int]]
+
+    def inner(usedIndices: Set[Int], acc: List[Int]): Unit =
+      if (usedIndices.isEmpty) res += acc
+      else {
+        for (i <- usedIndices)
+          inner(usedIndices - i, xs(i) :: acc)
+      }
+
+    inner(xs.indices.toSet, Nil)
+
+    res.toList
+  }
 
   /** Title: 47. Permutations II
     *
