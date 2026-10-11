@@ -104,6 +104,26 @@ object Solution extends App {
     *
     * Link: https://leetcode.com/problems/longest-palindromic-substring/
     */
+  def longestPalindrome(s: String): String = {
+    val N = s.length
+
+    @tailrec
+    def expand(l: Int, r: Int): (Int, Int) =
+      if (l >= 0 && r < N && s(l) == s(r)) expand(l - 1, r + 1)
+      else {
+        val prevL = l + 1
+        val len = r - prevL
+
+        (prevL, len)
+      }
+
+    val (start, len) = (for (i <- s.indices)
+      yield Seq(expand(i, i), expand(i, i + 1))
+        .maxBy({ case (_, l) => l }))
+      .maxBy({ case (_, l) => l })
+
+    s.substring(start, start + len)
+  }
 
   /** Title: 6. ZigZag Conversion
     *
