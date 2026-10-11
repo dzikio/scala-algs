@@ -52,6 +52,18 @@ object Solution extends App {
     *
     * Link: https://leetcode.com/problems/reverse-integer/
     */
+  def reverse(x: Int): Int = {
+    val nonNegative = x >= 0
+    val parsingFailed = 0
+    val candidate = x.abs.toString.reverse
+
+    Try {
+      candidate.toInt
+    } match {
+      case Failure(_) => parsingFailed
+      case Success(v) => if (nonNegative) v else -v
+    }
+  }
 
   /** Title: 9. Palindrome Number
     *
