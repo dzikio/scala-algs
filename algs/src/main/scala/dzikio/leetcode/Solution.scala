@@ -485,6 +485,28 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def generateParenthesis(n: Int): List[String] = {
+    val res = new mutable.ArrayBuffer[String]()
+    val sb = new StringBuilder()
+
+    def inner(o: Int, c: Int): Unit =
+      if (o == n && o == c) res += sb.toString()
+      else {
+        if (o < n && o >= c) {
+          sb.append('(')
+          inner(o + 1, c)
+          sb.deleteCharAt(sb.length() - 1)
+        }
+        if (c < n && o > c) {
+          sb.append(')')
+          inner(o, c + 1)
+          sb.deleteCharAt(sb.length() - 1)
+        }
+      }
+
+    inner(0, 0)
+    res.toList
+  }
 
   /** Title: 26. Remove Duplicates from Sorted Array
     *
