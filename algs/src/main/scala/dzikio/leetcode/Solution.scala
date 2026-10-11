@@ -157,6 +157,34 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def nextPermutation(xs: Array[Int]): Unit = {
+    def swap(arr: Array[Int], i: Int, j: Int) = {
+      val temp = arr(i)
+      arr(i) = arr(j)
+      arr(j) = temp
+    }
+
+    var k = -1
+
+    for (i <- 0 until xs.length - 1)
+      if (xs(i) < xs(i + 1)) k = i
+    var l = -1
+
+    if (k != -1) {
+      for (i <- k + 1 until xs.length)
+        if (xs(k) < xs(i)) l = i
+
+      swap(xs, k, l)
+    }
+
+    l = k + 1
+    var r = xs.length - 1
+    while (l < r) {
+      swap(xs, l, r)
+      l += 1
+      r -= 1
+    }
+  }
 
   /** Title: 33. Search in Rotated Sorted Array
     *
