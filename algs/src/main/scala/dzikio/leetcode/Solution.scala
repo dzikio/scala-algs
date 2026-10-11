@@ -284,6 +284,19 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def maxSubArray(xs: Array[Int]): Int = {
+    var globalMax = xs.head
+    var localMax = xs.head
+
+    for {
+      x <- xs.tail
+    } {
+      localMax = (localMax + x) max x
+      globalMax = localMax max globalMax
+    }
+
+    globalMax
+  }
 
   /** Title: 54. Spiral Matrix
     *
