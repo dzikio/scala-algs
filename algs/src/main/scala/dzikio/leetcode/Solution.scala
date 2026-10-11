@@ -331,6 +331,33 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def threeSum(xs: Array[Int]): List[List[Int]] = {
+    val xss = xs.sorted
+    val res = scala.collection.mutable.Set[List[Int]]()
+    val N = xss.length
+
+    for (i <- xss.indices)
+      if (i == 0 || xss(i) != xss(i - 1)) {
+        var l = i + 1
+        var r = N - 1
+        while (l < N && l < r) {
+          val sum = xss(i) + xss(l) + xss(r)
+
+          if (sum > 0) r -= 1
+          else if (sum < 0) l += 1
+          else {
+            res += List(xss(i), xss(l), xss(r))
+            l += 1
+            r -= 1
+          }
+
+          while (sum < 0 && l < N && l < r && xss(l) == xss(l - 1)) l += 1
+          while (sum > 0 && r > i && l < r && xss(r) == xss(r + 1)) r -= 1
+        }
+      }
+
+    res.toList
+  }
 
   /** Title: 16. 3Sum Closest
     *
