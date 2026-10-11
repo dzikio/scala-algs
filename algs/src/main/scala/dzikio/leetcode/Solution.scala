@@ -101,6 +101,30 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def threeSumClosest(xs: Array[Int], x: Int): Int = {
+    val xss = xs.sorted
+    val N = xss.length
+    var closest = xss(0) + xss(1) + xss(2)
+
+    for (i <- xss.indices)
+      if (i == 0 || xss(i) != xss(i - 1)) {
+        var l = i + 1
+        var r = N - 1
+        while (l < N && l < r) {
+          val sum = xss(i) + xss(l) + xss(r)
+
+          if ((sum - x).abs < (closest - x).abs) closest = sum
+          if (sum > x) r -= 1
+          else if (sum < x) l += 1
+          else return x
+
+          while (sum < x && l < N && l < r && xss(l) == xss(l - 1)) l += 1
+          while (sum > x && r > i && l < r && xss(r) == xss(r + 1)) r -= 1
+        }
+      }
+
+    closest
+  }
 
   /** Title: 17. Letter Combinations of a Phone Number
     *
