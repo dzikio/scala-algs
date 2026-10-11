@@ -730,6 +730,33 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def isValidSudoku(board: Array[Array[Char]]): Boolean = {
+    def hasUniqueDigits(xs: Seq[Char]): Boolean = {
+      val digits = xs.filter(_.isDigit)
+
+      digits.toSet.size == digits.length
+    }
+
+    def isValidRow(r: Int): Boolean = hasUniqueDigits(board(r))
+
+    def isValidColumn(c: Int) = hasUniqueDigits(board.map(_(c)))
+
+    def isValidSquare(ulr: Int, ulc: Int): Boolean = {
+      val square = for {
+        row <- ulr until ulr + 3
+        col <- ulc until ulc + 3
+      } yield board(row)(col)
+
+      hasUniqueDigits(square)
+    }
+
+    board.indices.forall(isValidRow) &&
+    board.indices.forall(isValidColumn) &&
+    (for {
+      r <- Seq(0, 3, 6)
+      c <- Seq(0, 3, 6)
+    } yield (r, c)).forall(xy => isValidSquare(xy._1, xy._2))
+  }
 
   /** Title: 38. Count and Say
     *
