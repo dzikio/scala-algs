@@ -31,6 +31,23 @@ object Solution extends App {
     * Link:
     * https://leetcode.com/problems/longest-substring-without-repeating-characters/
     */
+  def lengthOfLongestSubstring(s: String): Int = {
+    var res = 0
+    var l = 0
+
+    val lastOccurrence = mutable.Map.empty[Char, Int]
+
+    s.zipWithIndex.foreach { case (c, i) =>
+      if (lastOccurrence.contains(c) && lastOccurrence(c) >= l) {
+        l = lastOccurrence(c) + 1 // key insight
+      }
+
+      lastOccurrence += (c -> i)
+      res = res max (i - l + 1)
+    }
+
+    res
+  }
 
   /** Title: 5. Longest Palindromic Substring
     *
