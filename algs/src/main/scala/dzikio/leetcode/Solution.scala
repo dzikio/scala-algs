@@ -458,6 +458,26 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def mergeTwoLists(l1: ListNode, l2: ListNode): ListNode = {
+    var (x, y) = (l1, l2)
+    val dummy = new ListNode()
+    var node = dummy
+
+    while (Option(x).isDefined && Option(y).isDefined) {
+      if (x.x < y.x) {
+        node.next = x
+        x = x.next
+      } else {
+        node.next = y
+        y = y.next
+      }
+      node = node.next
+    }
+
+    node.next = if (Option(x).isDefined) x else y
+
+    dummy.next
+  }
 
   /** Title: 22. Generate Parentheses
     *
