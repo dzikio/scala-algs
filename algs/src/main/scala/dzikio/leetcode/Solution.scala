@@ -164,6 +164,29 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  val NotFound = -1
+
+  def search(xs: Array[Int], target: Int): Int = {
+    var lo = 0
+    var hi = xs.length - 1
+
+    while (lo <= hi) {
+      val mid = (hi + lo) / 2
+      val x = xs(mid)
+
+      if (x == target) return mid
+
+      if (xs(lo) <= x) { // important <=
+        if (xs(lo) <= target && target < x) hi = mid - 1
+        else lo = mid + 1
+      } else {
+        if (xs(hi) >= target && target > x) lo = mid + 1
+        else hi = mid - 1
+      }
+    }
+
+    NotFound
+  }
 
   /** Title: 34. Find First and Last Position of Element in Sorted Array
     *
