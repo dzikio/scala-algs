@@ -172,6 +172,36 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def searchRange(xs: Array[Int], t: Int): Array[Int] = {
+    if (xs.isEmpty) return Array(-1, -1)
+    var lo = 0
+    var hi = xs.length - 1
+    var loRes = -1
+    while (lo <= hi) {
+      val mid = (lo + hi) / 2
+
+      if (xs(mid) == t) loRes = mid
+
+      if (xs(mid) < t) lo = mid + 1
+      else hi = mid - 1
+    }
+
+    if (loRes == -1) return Array(-1, -1)
+
+    lo = 0
+    hi = xs.length - 1
+    var hiRes = -1
+    while (lo <= hi) {
+      val mid = (lo + hi) / 2
+
+      if (xs(mid) == t) hiRes = mid
+
+      if (xs(mid) > t) hi = mid - 1
+      else lo = mid + 1
+    }
+
+    Array(loRes, hiRes)
+  }
 
   /** Title: 35. Search Insert Position
     *
