@@ -80,6 +80,50 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def romanToInt(s: String): Int = {
+    val rToI = Map(
+      "I" -> 1,
+      "IV" -> 4,
+      "V" -> 5,
+      "IX" -> 9,
+      "X" -> 10,
+      "XL" -> 40,
+      "L" -> 50,
+      "XC" -> 90,
+      "C" -> 100,
+      "CD" -> 400,
+      "D" -> 500,
+      "CM" -> 900,
+      "M" -> 1000
+    )
+    val roman = Array(
+      "M",
+      "CM",
+      "D",
+      "CD",
+      "C",
+      "XC",
+      "L",
+      "XL",
+      "X",
+      "IX",
+      "V",
+      "IV",
+      "I"
+    )
+
+    @tailrec
+    def inner(s: String, i: Int, acc: Int): Int =
+      if (s == "") acc
+      else if (s.startsWith(roman(i))) {
+        val r = roman(i)
+        inner(s.drop(r.length), i, acc + rToI(r))
+      } else {
+        inner(s, i + 1, acc)
+      }
+
+    inner(s, 0, 0)
+  }
 
   /** Title: 14. Longest Common Prefix
     *
