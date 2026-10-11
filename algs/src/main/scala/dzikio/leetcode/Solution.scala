@@ -430,6 +430,27 @@ object Solution extends App {
     *
     * Difficulty: Easy
     */
+  def isValid(s: String): Boolean = {
+    val q = mutable.ArrayDeque[Char]()
+    val oToC = Map(
+      '(' -> ')',
+      '[' -> ']',
+      '{' -> '}'
+    )
+
+    val isOpen: Char => Boolean = oToC.contains
+
+    for (c <- s)
+      if (isOpen(c)) {
+        q.prepend(c)
+      } else {
+        if (q.isEmpty) return false
+        val lastOpen = q.removeHead()
+        if (oToC(lastOpen) != c) return false
+      }
+
+    q.isEmpty
+  }
 
   /** Title: 21. Merge Two Sorted Lists
     *
