@@ -193,6 +193,33 @@ object Solution extends App {
     *
     * Difficulty: Medium
     */
+  def countAndSay(n: Int): String = {
+    def inner(prev: StringBuilder, j: Int): String = {
+      if (j == n) {
+        prev.toString()
+      } else {
+        var i = 0
+        val cur = new mutable.StringBuilder()
+
+        while (i < prev.length()) {
+          val what = prev(i)
+          var cnt = 0
+
+          while (cnt == 0 || i < prev.length() && prev(i) == prev(i - 1)) {
+            cnt += 1
+            i += 1
+          }
+
+          cur ++= cnt.toString
+          cur += what
+        }
+
+        inner(cur, j + 1)
+      }
+    }
+
+    inner(new mutable.StringBuilder("1"), 1)
+  }
 
   /** Title: 39. Combination Sum
     *
