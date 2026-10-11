@@ -16,6 +16,27 @@ object Solution extends App {
     *
     * Link: https://leetcode.com/problems/two-sum/
     */
+  def twoSum(nums: Array[Int], target: Int): Array[Int] = {
+    val xToI = nums.zipWithIndex.toMap
+
+    nums.zipWithIndex
+      .find { case (x, i) => xToI.get(target - x).exists(_ > i) }
+      .map { case (x, i) => Array(i, xToI(target - x)) }
+      .getOrElse(throw Exceptions.BadConditions)
+  }
+
+  def twoSumImperative(nums: Array[Int], target: Int): Array[Int] = {
+    val xToI = nums.zipWithIndex.toMap
+
+    for { i <- nums.indices } {
+      val x = nums(i)
+      val missing = target - x
+
+      if (xToI.get(missing).exists(_ > i)) return Array(i, xToI(missing))
+    }
+
+    throw Exceptions.BadConditions
+  }
 
   /** Title: 2. Add Two Numbers
     *
